@@ -3,10 +3,7 @@
       class="vue-table__body"
       :style="{
         width: width + 'px'
-      }"
-      cellspacing="0"
-      cellpadding="0"
-      border="0">
+      }">
     <colgroup>
       <col v-for="item in colgroup" :width="item.width">
     </colgroup>
@@ -60,15 +57,9 @@
     },
 
     methods: {
-      $c(data) {
-        return JSON.parse(JSON.stringify(data))
-      },
+
     },
 
-    mounted() {
-      // console.log(this.$c(this.columns), 'columns')
-      // console.log(this.$c(this.data), 'data')
-    }
   }
 </script>
 

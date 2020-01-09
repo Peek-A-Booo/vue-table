@@ -5,6 +5,8 @@
   .vue-table__body {
     width: 100%;
     table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
 
     .vue-table__row {
       td {
@@ -13,6 +15,11 @@
         padding: 10px 0;
         border-bottom: 1px solid $--border-color;
         color: #606266;
+      }
+
+      &:hover td{
+        transition: all .3s;
+        background-color: #e6f7ff;
       }
     }
   }
