@@ -1,0 +1,20 @@
+.vue-table__body-wrapper {
+  //overflow: auto;
+  display: table;
+
+  .vue-table__body {
+    width: 100%;
+    table-layout: fixed;
+
+    .vue-table__row {
+      td {
+        text-align: center;
+        background-color: #ffffff;
+        padding: 10px 0;
+        border-bottom: 1px solid $--border-color;
+        color: #606266;
+      }
+    }
+  }
+}
+
