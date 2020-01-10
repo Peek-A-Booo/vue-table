@@ -19,7 +19,7 @@ module.exports = {
     config.module
       .rule('js').use('babel-loader')
     // config.resolve.alias
-    //   .set('vue-json-editors', resolve('./'))
+    //   .set('vue-table', resolve('./'))
     // config.entry.app = ["babel-polyfill", "./examples/main.js"]
   },
   configureWebpack: {
