@@ -10,7 +10,10 @@
     <tbody>
     <tr class="vue-table__row" v-for="(row,rowIndex) in data" :key="rowIndex">
       <td rowspan="1" colspan="1" v-for="(col,colIndex) in columns" :key="colIndex">
-        {{row[col.key]}}
+        <template v-if="col.slot">
+          <slot :name="col.slot"/>
+        </template>
+        <template v-else>{{row[col.key]}}</template>
       </td>
     </tr>
     </tbody>
@@ -56,9 +59,12 @@
       return {}
     },
 
-    methods: {
+    methods: {},
 
-    },
+    mounted() {
+      console.log(JSON.parse(JSON.stringify(this.data)), 'data')
+      console.log(JSON.parse(JSON.stringify(this.columns)), 'columns')
+    }
 
   }
 </script>

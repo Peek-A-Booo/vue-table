@@ -1,7 +1,15 @@
 <template>
   <div class="home">
     <vue-table :columns="columns" :data="list">
+<!--      <template slot="lsx" slot-scope="{data}">-->
+<!--        {{data}}-->
+<!--      </template>-->
 
+
+<!--      <div slot="color" :value="list">{{list}}</div>-->
+<!--      <template v-slot:color="{data}">-->
+<!--        {{data}}-->
+<!--      </template>-->
     </vue-table>
   </div>
 </template>
@@ -30,7 +38,8 @@
           {
             label: '颜色',
             key: 'color',
-            width: '532px'
+            width: '532px',
+            slot: 'color'
           },
         ],
         list: [

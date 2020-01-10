@@ -9,8 +9,13 @@
       <table-header :colgroup="cols" :columns="columns"/>
     </div>
     <div class="vue-table__body-wrapper">
-      <table-body :colgroup="cols" :columns="columns" :data="data"/>
+      <table-body :colgroup="cols" :columns="columns" :data="data">
+        <template v-for="item in columns" v-if="item.slot" :slot="item.slot">
+          <slot :name="item.slot"/>
+        </template>
+      </table-body>
     </div>
+    <slot name="lsx">{{columns}}</slot>
   </div>
 </template>
 
