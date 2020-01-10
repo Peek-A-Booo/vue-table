@@ -62,8 +62,7 @@
     methods: {},
 
     mounted() {
-      console.log(JSON.parse(JSON.stringify(this.data)), 'data')
-      console.log(JSON.parse(JSON.stringify(this.columns)), 'columns')
+
     }
 
   }

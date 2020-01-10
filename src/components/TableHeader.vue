@@ -48,19 +48,15 @@
 
     data() {
       return {
-        // width: 'auto',
+
       }
     },
     methods: {},
     created() {
-      // console.log(JSON.parse(JSON.stringify(this.colgroup)), 'group')
+
     },
     mounted() {
 
-      // console.log(this.$refs.table_header.clientWidth, '当前宽度')
-      // console.log(this.$parent.$el.clientWidth, '父组件宽度')
-
-      // this.width = parseFloat(window.getComputedStyle(this.$refs.table_header).width)
     }
   }
 </script>

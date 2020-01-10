@@ -85,8 +85,7 @@
     },
 
     created() {
-      // console.log(JSON.parse(JSON.stringify(this.columns)), 'columns')
-      // console.log(JSON.parse(JSON.stringify(this.data)), 'data')
+
     },
 
     methods: {
