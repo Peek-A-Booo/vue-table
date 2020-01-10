@@ -11,7 +11,7 @@
     <tr class="vue-table__row" v-for="(row,rowIndex) in data" :key="rowIndex">
       <td rowspan="1" colspan="1" v-for="(col,colIndex) in columns" :key="colIndex">
         <template v-if="col.slot">
-          <slot :name="col.slot"/>
+          <slot :row="row" :name="col.slot">{{row[col.key]}}</slot>
         </template>
         <template v-else>{{row[col.key]}}</template>
       </td>

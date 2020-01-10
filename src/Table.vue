@@ -10,12 +10,11 @@
     </div>
     <div class="vue-table__body-wrapper">
       <table-body :colgroup="cols" :columns="columns" :data="data">
-        <template v-for="item in columns" v-if="item.slot" :slot="item.slot">
-          <slot :name="item.slot"/>
+        <template v-for="(col,index) in slotList" v-slot:[col.slot]="scope">
+          <slot :row="scope.row" :name="col.slot"/>
         </template>
       </table-body>
     </div>
-    <slot name="lsx">{{columns}}</slot>
   </div>
 </template>
 
@@ -72,17 +71,22 @@
         }
         return groups
       },
+      slotList() {
+        return JSON.parse(JSON.stringify(this.columns)).filter(item => item.slot)
+      },
     },
 
     data() {
       return {
         test: 0,
         clientWidth: null,
+        name: 'color',
       }
     },
 
     created() {
-      // if (this.width) this.width = parseFloat(this.width)
+      // console.log(JSON.parse(JSON.stringify(this.columns)), 'columns')
+      // console.log(JSON.parse(JSON.stringify(this.data)), 'data')
     },
 
     methods: {
