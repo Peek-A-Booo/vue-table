@@ -1,6 +1,6 @@
 {
   "name": "vue-fast-table",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "基于Vue的一个table组件",
   "main": "lib/vue-table.umd.min.js",
   "private": false,
@@ -15,7 +15,9 @@
     "build": "vue-cli-service build",
     "lib": "vue-cli-service build --target lib --name vue-table --dest lib src/index.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "element-resize-detector": "1.1.16"
+  },
   "devDependencies": {
     "core-js": "3.6.2",
     "vue": "2.6.11",

@@ -1,11 +1,13 @@
 <template>
-  <table
-      class="vue-table__header"
-      :style="{
-        width: width + 'px',
-      }">
+  <table class="vue-table__header">
     <colgroup>
-      <col v-for="item in colgroup" :width="item.width">
+      <template v-for="item in colgroup">
+        <col v-if="item.width" :style="{
+          width: item.width + 'px',
+          minWidth: item.width + 'px',
+        }">
+        <col v-else style="min-width: 80px">
+      </template>
     </colgroup>
     <thead>
     <tr>
@@ -35,23 +37,13 @@
         },
       },
     },
-    //默认锁死宽度80
-    computed: {
-      width() {
-        let width = 0
-        this.colgroup.forEach(item => {
-          width += item.width
-        })
-        return width
-      },
-    },
 
     data() {
-      return {
-
-      }
+      return {}
     },
+
     methods: {},
+
     created() {
 
     },

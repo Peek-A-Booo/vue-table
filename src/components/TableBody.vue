@@ -1,11 +1,13 @@
 <template>
-  <table
-      class="vue-table__body"
-      :style="{
-        width: width + 'px'
-      }">
+  <table class="vue-table__body">
     <colgroup>
-      <col v-for="item in colgroup" :width="item.width">
+      <template v-for="item in colgroup">
+        <col v-if="item.width" :style="{
+          width: item.width + 'px',
+          minWidth: item.width + 'px',
+        }">
+        <col v-else style="min-width: 80px">
+      </template>
     </colgroup>
     <tbody>
     <tr class="vue-table__row" v-for="(row,rowIndex) in data" :key="rowIndex">
@@ -46,13 +48,7 @@
     },
 
     computed: {
-      width() {
-        let width = 0
-        this.colgroup.forEach(item => {
-          width += item.width
-        })
-        return width
-      },
+
     },
 
     data() {

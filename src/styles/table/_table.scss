@@ -1,5 +1,6 @@
 .vue-table {
   width: 100%;
-  //overflow: hidden;
-  overflow: auto;
+  //overflow-x: auto;
+  //overflow-y: hidden;
+  //overflow: auto;
 }
