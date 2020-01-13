@@ -1,6 +1,12 @@
 .vue-table {
   width: 100%;
-  //overflow-x: auto;
-  //overflow-y: hidden;
-  //overflow: auto;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: $--font-size;
+  font-variant: tabular-nums;
+  list-style: none;
+  line-height: 1.5;
+  position: relative;
+  clear: both;
 }

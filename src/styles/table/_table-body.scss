@@ -8,16 +8,24 @@
 
     .vue-table__row {
       td {
-        text-align: center;
+        text-align: left;
         background-color: #ffffff;
-        padding: 10px 0;
+        padding: 10px;
         border-bottom: 1px solid $--border-color;
-        color: #606266;
+        color: $--body-color;
+
+        &.vue-table__body__row-align-center {
+          text-align: center;
+        }
+
+        &.vue-table__body__row-align-right {
+          text-align: right;
+        }
       }
 
-      &:hover td{
+      &:hover td {
         transition: all .3s;
-        background-color: #e6f7ff;
+        background-color: $--body-hover-color;
       }
     }
   }

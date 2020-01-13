@@ -1,12 +1,15 @@
 .vue-table__header-wrapper {
-  background-color: #fafafa;
+  background-color: $--header-background-color;
 
+  //兼容webkit
   &::-webkit-scrollbar {
     background-color: transparent;
   }
 
+  //兼容moz
+  scrollbar-color: transparent transparent;
+
   .vue-table__header {
-    color: #909399;
     width: 100%;
     table-layout: fixed;
     border-collapse: separate;
@@ -14,13 +17,21 @@
 
     tr {
       th {
+        text-align: left;
         border-bottom: 1px solid $--border-color;
         user-select: none;
-        background-color: #fafafa;
-        padding: 10px 0;
-        text-align: center;
-        color: rgba(0, 0, 0, 0.85);
+        background-color: $--header-background-color;
+        padding: 10px;
+        color: $--header-color;
         font-weight: 500;
+
+        &.vue-table__header-align-center {
+          text-align: center;
+        }
+
+        &.vue-table__header-align-right {
+          text-align: right;
+        }
       }
     }
   }

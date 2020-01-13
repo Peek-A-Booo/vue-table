@@ -11,7 +11,18 @@
     </colgroup>
     <tbody>
     <tr class="vue-table__row" v-for="(row,rowIndex) in data" :key="rowIndex">
-      <td rowspan="1" colspan="1" v-for="(col,colIndex) in columns" :key="colIndex">
+      <td
+          v-for="(col,colIndex) in columns"
+          :key="colIndex"
+          :class="[
+            'col' + colIndex,
+            {
+              'vue-table__body__row-align-center': col.align === 'center',
+              'vue-table__body__row-align-right': col.align === 'right',
+            },
+          ]"
+          rowspan="1"
+          colspan="1">
         <template v-if="col.slot">
           <slot :row="row" :name="col.slot">{{row[col.key]}}</slot>
         </template>

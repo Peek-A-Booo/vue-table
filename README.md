@@ -1,4 +1,4 @@
-# vue-table
+# vue-fast-table
 
 ## Project setup
 ```

@@ -11,7 +11,18 @@
     </colgroup>
     <thead>
     <tr>
-      <th :class="'col'+index" colspan="1" rowspan="1" v-for="(item,index) in columns" :key="index">
+      <th
+          v-for="(item, index) in columns"
+          :key="index"
+          :class="[
+            'col' + index,
+            {
+              'vue-table__header-align-center': item.align === 'center',
+              'vue-table__header-align-right': item.align === 'right',
+            },
+          ]"
+          colspan="1"
+          rowspan="1">
         {{item.label}}
       </th>
     </tr>
