@@ -4,6 +4,7 @@
   //兼容webkit
   &::-webkit-scrollbar {
     background-color: transparent;
+    border-bottom: 1px solid #e8e8e8;
   }
 
   //兼容moz

@@ -1,11 +1,11 @@
 <template>
   <div class="home" style="margin: 20px;">
-    <vue-table :columns="columns" :data="list" height="500">
+    <vue-table :columns="columns" :data="list" border height="400">
       <template v-slot:color="scope">
         <button>{{scope.row.color}}</button>
       </template>
     </vue-table>
-    12414
+    <button @click="test">测试按钮</button>
   </div>
 </template>
 
@@ -15,13 +15,11 @@
     name: 'home',
     data() {
       return {
-        test: 123,
         columns: [
           {
             label: '姓名',
             key: 'name',
             width: 180,
-            align: 'center'
           },
           {
             label: '年龄',
@@ -64,56 +62,61 @@
             gender: '上海市普陀区金沙江路 1518 弄',
             color: '红色',
           },
-          // {
-          //   name: '2016-06-03',
-          //   age: '王小虎',
-          //   gender: '上海市普陀区金沙江路 1518 弄',
-          //   color: '绿色',
-          // },
-          // {
-          //   name: '2016-07-04',
-          //   age: '王小虎',
-          //   gender: '上海市普陀区金沙江路 1518 弄',
-          //   color: '黄色',
-          // },
-          // {
-          //   name: '2016-05-022016-05-022016-05-02',
-          //   age: '王小虎',
-          //   gender: '上海市普陀区金沙江路 1518 弄',
-          //   color: '红色',
-          // },
-          // {
-          //   name: '2016-06-03',
-          //   age: '王小虎',
-          //   gender: '上海市普陀区金沙江路 1518 弄',
-          //   color: '绿色',
-          // },
-          // {
-          //   name: '2016-07-04',
-          //   age: '王小虎',
-          //   gender: '上海市普陀区金沙江路 1518 弄',
-          //   color: '黄色',
-          // },
-          // {
-          //   name: '2016-05-022016-05-022016-05-02',
-          //   age: '王小虎',
-          //   gender: '上海市普陀区金沙江路 1518 弄',
-          //   color: '红色',
-          // },
-          // {
-          //   name: '2016-06-03',
-          //   age: '王小虎',
-          //   gender: '上海市普陀区金沙江路 1518 弄',
-          //   color: '绿色',
-          // },
-          // {
-          //   name: '2016-07-04',
-          //   age: '王小虎',
-          //   gender: '上海市普陀区金沙江路 1518 弄',
-          //   color: '黄色',
-          // },
+          {
+            name: '2016-06-03',
+            age: '王小虎',
+            gender: '上海市普陀区金沙江路 1518 弄',
+            color: '绿色',
+          },
+          {
+            name: '2016-07-04',
+            age: '王小虎',
+            gender: '上海市普陀区金沙江路 1518 弄',
+            color: '黄色',
+          },
+          {
+            name: '2016-05-022016-05-022016-05-02',
+            age: '王小虎',
+            gender: '上海市普陀区金沙江路 1518 弄',
+            color: '红色',
+          },
+          {
+            name: '2016-06-03',
+            age: '王小虎',
+            gender: '上海市普陀区金沙江路 1518 弄',
+            color: '绿色',
+          },
+          {
+            name: '2016-07-04',
+            age: '王小虎',
+            gender: '上海市普陀区金沙江路 1518 弄',
+            color: '黄色',
+          },
+          {
+            name: '2016-05-022016-05-022016-05-02',
+            age: '王小虎',
+            gender: '上海市普陀区金沙江路 1518 弄',
+            color: '红色',
+          },
+          {
+            name: '2016-06-03',
+            age: '王小虎',
+            gender: '上海市普陀区金沙江路 1518 弄',
+            color: '绿色',
+          },
+          {
+            name: '2016-07-04',
+            age: '王小虎',
+            gender: '上海市普陀区金沙江路 1518 弄',
+            color: '黄色',
+          },
         ],
       }
+    },
+    methods: {
+      test() {
+        this.list = JSON.parse(JSON.stringify(this.list)).slice(0, 3)
+      },
     },
   }
 </script>

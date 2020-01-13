@@ -16,6 +16,10 @@
 
 ### Change
 1. 添加column的align属性
+2. 支持height配置
+3. 支持border配置
+
+
 
 
 

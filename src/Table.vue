@@ -1,7 +1,15 @@
 <template>
   <div
       class="vue-table"
-      :class="wrapperClass">
+      :style="styles"
+      :class="[
+        wrapperClass,
+        {
+          'vue-table-scrollbar': showVerticalScrollBar,
+          'vue-table-bordered': border,
+          'vue-table-single-bottom': !this.height,
+        }
+      ]">
     <div
         class="vue-table__header-wrapper" ref="header"
         :style="headerStyle"
@@ -42,14 +50,22 @@
           return []
         },
       },
+
       data: {
         type: Array,
         default: function () {
           return []
         }
       },
+
       width: [String, Number],
+
       height: [String, Number],
+
+      border: {
+        type: Boolean,
+        default: false,
+      },
     },
 
     data() {
@@ -78,6 +94,14 @@
         ]
       },
 
+      styles() {
+        let style = {}
+        if (this.tableBodyHeight) {
+          // console.log(this.tableBodyHeight, 'this.tableBodyHeight')
+        }
+        return style
+      },
+
       headerStyle() {
         let style = {}
         style.overflow = 'scroll'
@@ -85,18 +109,21 @@
         style.paddingBottom = 0
         return style
       },
+
       bodyStyle() {
         let style = {}
         if (this.tableBodyHeight) {
-          console.log(this.totalWidth, 'this.totalWidth')
-          console.log(this.tableWidth, 'this.tableWidth')
           if (this.totalWidth > this.tableWidth) style.overflowX = 'scroll'
           if (this.height) {
-            let headerHeight = this.$refs.header.offsetHeight
-            if ((this.tableBodyHeight - headerHeight) > this.height) {
+            //因为配置了一个margin-bottom : -15px，所以要 -15
+            let headerHeight = this.$refs.header.offsetHeight - 15
+            let tableHeight = this.$refs.bodyTable.$el.offsetHeight
+            style.height = this.$height(parseInt(this.height) - headerHeight)
+            if ((tableHeight + headerHeight) > parseInt(this.height)) {
               this.showVerticalScrollBar = true
-              style.maxHeight = this.$height(this.height)
               style.overflowY = 'scroll'
+            } else {
+              this.showVerticalScrollBar = false
             }
           }
         } else {
@@ -108,11 +135,12 @@
 
     watch: {
       data: {
-        handler(n) {
-          console.log(n, 'new')
+        handler() {
+          this.handleResize()
         },
         deep: true,
       },
+
     },
 
     methods: {
@@ -128,12 +156,13 @@
         let noSetWidthCount = 0
         groups.forEach(item => {
           if (item.width) {
-            item.width = parseFloat(item.width)
+            item.width = parseInt(item.width)
             totalWidth += item.width
           } else {
             noSetWidthCount++
           }
         })
+        this.totalWidth = totalWidth
         //暂时没处理无法设置最小宽度的问题
         if (noSetWidthCount) {
           if ((width - totalWidth) >= 80 * noSetWidthCount) {
@@ -146,10 +175,6 @@
             // })
           }
         }
-        this.totalWidth = 0
-        groups.forEach(item => {
-          this.totalWidth += item.width
-        })
         this.tableWidth = width
         this.cols = groups
         this.$nextTick(_ => {
