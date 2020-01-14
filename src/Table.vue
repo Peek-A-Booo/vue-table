@@ -142,9 +142,11 @@
 
       headerStyle() {
         let style = {}
-        style.overflow = 'scroll'
-        style.marginBottom = '-15px'
-        style.paddingBottom = 0
+        if (this.showVerticalScrollBar) {
+          style.overflow = 'scroll'
+          style.marginBottom = '-15px'
+          style.paddingBottom = 0
+        }
         return style
       },
 

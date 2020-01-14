@@ -1,6 +1,6 @@
 {
   "name": "vue-fast-table",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "基于Vue的一个table组件",
   "main": "lib/vue-table.umd.min.js",
   "private": false,
@@ -19,10 +19,10 @@
     "element-resize-detector": "1.1.16"
   },
   "devDependencies": {
-    "core-js": "3.6.2",
+    "core-js": "3.6.4",
     "vue": "2.6.11",
     "vue-router": "3.1.3",
-    "sass-loader": "8.0.0",
+    "sass-loader": "8.0.2",
     "node-sass": "4.13.0",
     "@vue/cli-plugin-babel": "4.1.2",
     "@vue/cli-plugin-router": "4.1.2",
