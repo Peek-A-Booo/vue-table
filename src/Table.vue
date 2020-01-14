@@ -9,9 +9,9 @@
           'vue-table-bordered': border,
           'vue-table-single-bottom': !this.height,
           'vue-table__no-data': !data || !data.length,
-          'vue-table__no-data-min-height': !this.height || this.height < 160,
+          'vue-table__no-data-min-height': !this.height,
         },
-        'vue-table-' + this.$SIZE || this.size,
+        'vue-table-' + tableSize,
       ]">
     <div class="vue-table__container" :class="{ 'vue-table__loading': loading }">
       <div
@@ -124,6 +124,10 @@
         return JSON.parse(JSON.stringify(this.columns)).filter(item => item.slot)
       },
 
+      tableSize() {
+        return this.$SIZE || this.size
+      },
+
       wrapperClass() {
         return [
           {
@@ -156,9 +160,9 @@
           if (this.totalWidth > this.tableWidth) style.overflowX = 'scroll'
           if (this.height) {
             //因为配置了一个margin-bottom : -15px，所以要 -15
-            let headerHeight = this.$refs.header.offsetHeight - 15
+            let headerHeight = this.$refs.header.offsetHeight - (this.showVerticalScrollBar ? 15 : 0)
             let tableHeight = this.$refs.bodyTable.$el.offsetHeight
-            style.height = this.$height(parseInt(this.height) - headerHeight)
+            style.height = this.$height(this.height, headerHeight)
             if ((tableHeight + headerHeight) > parseInt(this.height)) {
               this.showVerticalScrollBar = true
               style.overflowY = 'scroll'
@@ -249,18 +253,15 @@
     },
 
     mounted() {
-      console.log(this.$SIZE, 'size')
       this.handleResize()
       this.$nextTick(() => this.ready = true)
       // window.addEventListener('resize', this.handleResize)
-
-
       // this.observer = elementResizeDetectorMaker();
       // this.observer.listenTo(this.$el, this.handleResize);
     }
     ,
     beforeDestroy() {
-      window.removeEventListener('resize', this.handleResize)
+      // window.removeEventListener('resize', this.handleResize)
     }
   }
 </script>

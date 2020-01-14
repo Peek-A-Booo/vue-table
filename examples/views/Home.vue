@@ -1,6 +1,6 @@
 <template>
   <div class="home" style="margin: 20px;">
-    <vue-table :loading="loading" :columns="columns" :data="list" height="400" border>
+    <vue-table :loading="loading" :columns="columns" :data="list" height="400px" border>
       <template v-slot:color="scope">
         <button>{{scope.row.color}}</button>
       </template>

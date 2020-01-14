@@ -75,9 +75,9 @@
     &.vue-table-scrollbar .vue-table__body-wrapper {
       border-right: none;
     }
-
   }
 
+  //没有数据时，最后一排数据的下边框取消
   &.vue-table-single-bottom {
     .vue-table__body-wrapper {
       .vue-table__body {
@@ -88,9 +88,10 @@
     }
   }
 
+  //没有数据，且未设定高度时，设定一个最小高度
   &.vue-table__no-data.vue-table__no-data-min-height {
     .vue-table__body-wrapper {
-      height: $--no-data-min-height;
+      min-height: $--no-data-min-height;
     }
   }
 

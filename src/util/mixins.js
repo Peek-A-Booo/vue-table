@@ -16,18 +16,27 @@ export default {
       }
       return width
     },
-    $height(data) {
+
+    /**
+     * @param data 主高度
+     * @param subData 需要减去的高度
+     * */
+    $height(data, subData = 0) {
+      console.log(data, 'data')
+      console.log(subData, 'sub')
       let height = ''
       if (!data) {
         height = ''
       } else if (typeof data === 'number') {
-        height = data + 'px'
+        height = data - subData + 'px'
       } else if (data.includes('+')) {
-        height = `calc(100vh - ${data.slice(1)}px)`
-      } else if (data.includes('calc') || data.includes('px')) {
-        height = data
+        height = `calc(100vh - ${data.slice(1) - subData}px)`
+      } else if (data.includes('calc')) {
+        // height = data
+      } else if (data.includes('px')) {
+        height = parseInt(data) - subData + 'px'
       } else {
-        height = data + 'px'
+        height = data - subData + 'px'
       }
       return height
     },
