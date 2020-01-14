@@ -26,7 +26,9 @@
         <template v-if="col.slot">
           <slot :row="row" :name="col.slot">{{row[col.key]}}</slot>
         </template>
-        <template v-else>{{row[col.key]}}</template>
+        <template v-else>
+          {{col.type === 'index' ? (rowIndex + 1) : row[col.key]}}
+        </template>
       </td>
     </tr>
     </tbody>
@@ -58,9 +60,7 @@
       },
     },
 
-    computed: {
-
-    },
+    computed: {},
 
     data() {
       return {}

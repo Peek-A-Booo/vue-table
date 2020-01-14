@@ -1,6 +1,9 @@
 //整体样式
 $--font-size: 14px;
 $--border-color: #ebeef5;
+$--size-default: 10px;
+$--size-small: 8px 10px;
+$--size-mini: 6px 10px;
 
 //header style
 $--header-color: rgba(0, 0, 0, 0.85);
@@ -9,4 +12,8 @@ $--header-background-color: #fafafa;
 //body style
 $--body-color: #606266;
 $--body-hover-color: #e6f7ff;
+
+//no data style
+$--no-data-color: rgba(0, 0, 0, 0.25);
+$--no-data-min-height: 160px;
 

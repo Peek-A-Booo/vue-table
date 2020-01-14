@@ -1,0 +1,17 @@
+.vue-table.vue-table-mini {
+  .vue-table__header tr > th, .vue-table__body tr > td {
+    padding: $--size-mini;
+  }
+}
+
+.vue-table.vue-table-small {
+  .vue-table__header tr > th, .vue-table__body tr > td {
+    padding: $--size-small;
+  }
+}
+
+.vue-table.vue-table-default {
+  .vue-table__header tr > th, .vue-table__body tr > td {
+    padding: $--size-default;
+  }
+}

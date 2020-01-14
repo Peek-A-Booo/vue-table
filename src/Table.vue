@@ -8,23 +8,41 @@
           'vue-table-scrollbar': showVerticalScrollBar,
           'vue-table-bordered': border,
           'vue-table-single-bottom': !this.height,
-        }
+          'vue-table__no-data': !data || !data.length,
+          'vue-table__no-data-min-height': !this.height || this.height < 160,
+        },
+        'vue-table-' + this.$SIZE || this.size,
       ]">
-    <div
-        class="vue-table__header-wrapper" ref="header"
-        :style="headerStyle"
-        @scroll="handleHeaderScroll">
-      <table-header :colgroup="cols" :columns="columns"/>
+    <div class="vue-table__container" :class="{ 'vue-table__loading': loading }">
+      <div
+          class="vue-table__header-wrapper" ref="header"
+          :style="headerStyle"
+          @scroll="handleHeaderScroll">
+        <table-header :colgroup="cols" :columns="calcColumns"/>
+      </div>
+      <div
+          class="vue-table__body-wrapper" ref="body"
+          :style="bodyStyle"
+          @scroll="handleBodyScroll">
+        <table-body :colgroup="cols" :columns="calcColumns" :data="data" ref="bodyTable">
+          <template v-for="col in slotList" v-slot:[col.slot]="scope">
+            <slot :row="scope.row" :name="col.slot"/>
+          </template>
+        </table-body>
+        <div class="vue-table__placeholder" v-if="!data || !data.length">
+          <p class="vue-table__empty-description">{{emptyText || 'No Data'}}</p>
+        </div>
+      </div>
     </div>
-    <div
-        class="vue-table__body-wrapper" ref="body"
-        :style="bodyStyle"
-        @scroll="handleBodyScroll">
-      <table-body :colgroup="cols" :columns="columns" :data="data" ref="bodyTable">
-        <template v-for="col in slotList" v-slot:[col.slot]="scope">
-          <slot :row="scope.row" :name="col.slot"/>
-        </template>
-      </table-body>
+    <div class="vue-table__mask" v-if="loading">
+      <div class="vue-table__mask-spin">
+        <svg t="1578994306310" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+             p-id="3833" width="40" height="40">
+          <path
+              d="M938.688 512A426.688 426.688 0 1 1 512 85.312a21.312 21.312 0 0 0 0-42.688A469.312 469.312 0 1 0 981.312 512a21.312 21.312 0 1 0-42.624 0z"
+              p-id="3834" fill="#1890ff"></path>
+        </svg>
+      </div>
     </div>
   </div>
 </template>
@@ -63,6 +81,26 @@
       height: [String, Number],
 
       border: {
+        type: Boolean,
+        default: false,
+      },
+
+      //是否展示index
+      index: {
+        type: Boolean,
+        default: false,
+      },
+
+      size: {
+        validator(value) {
+          return ['default', 'small', 'mini'].includes(value)
+        },
+        default: 'default',
+      },
+
+      emptyText: String,
+
+      loading: {
         type: Boolean,
         default: false,
       },
@@ -131,6 +169,17 @@
         }
         return style
       },
+
+      calcColumns() {
+        let columns = JSON.parse(JSON.stringify(this.columns))
+        if (this.index) columns.unshift({
+          label: '#',
+          width: 50,
+          type: 'index',
+          align: 'center'
+        })
+        return columns
+      },
     },
 
     watch: {
@@ -141,6 +190,9 @@
         deep: true,
       },
 
+      calcColumns() {         //修改列数时重新计算
+        this.handleResize()
+      },
     },
 
     methods: {
@@ -150,8 +202,7 @@
       handleResize() {
         //判断width
         let width = this.width || this.$el.offsetWidth
-        let groups = JSON.parse(JSON.stringify(this.columns))
-
+        let groups = JSON.parse(JSON.stringify(this.calcColumns))
         let totalWidth = 0
         let noSetWidthCount = 0
         groups.forEach(item => {
@@ -196,6 +247,7 @@
     },
 
     mounted() {
+      console.log(this.$SIZE, 'size')
       this.handleResize()
       this.$nextTick(() => this.ready = true)
       // window.addEventListener('resize', this.handleResize)

@@ -4,7 +4,7 @@ import router from './router'
 
 import Table from '../src'
 
-Vue.use(Table)
+Vue.use(Table, {size: 'mini'})
 
 Vue.config.productionTip = false
 

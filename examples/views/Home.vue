@@ -1,6 +1,6 @@
 <template>
   <div class="home" style="margin: 20px;">
-    <vue-table :columns="columns" :data="list" border height="400">
+    <vue-table :loading="loading" :columns="columns" :data="list" index border height="400">
       <template v-slot:color="scope">
         <button>{{scope.row.color}}</button>
       </template>
@@ -15,6 +15,7 @@
     name: 'home',
     data() {
       return {
+        loading: false,
         columns: [
           {
             label: '姓名',
@@ -115,7 +116,8 @@
     },
     methods: {
       test() {
-        this.list = JSON.parse(JSON.stringify(this.list)).slice(0, 3)
+        this.loading = !this.loading
+        // this.list = JSON.parse(JSON.stringify(this.list)).slice(0, 3)
       },
     },
   }

@@ -4,7 +4,7 @@
   //兼容webkit
   &::-webkit-scrollbar {
     background-color: transparent;
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid $--border-color;
   }
 
   //兼容moz
@@ -22,7 +22,7 @@
         border-bottom: 1px solid $--border-color;
         user-select: none;
         background-color: $--header-background-color;
-        padding: 10px;
+        padding: $--size-default;
         color: $--header-color;
         font-weight: 500;
 

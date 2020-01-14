@@ -41,6 +41,7 @@
           return []
         },
       },
+
       colgroup: {
         type: Array,
         default: function () {

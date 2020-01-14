@@ -1,5 +1,6 @@
 .vue-table__body-wrapper {
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid $--border-color;
+  position: relative;
 
   .vue-table__body {
     width: 100%;
@@ -11,7 +12,7 @@
       td {
         text-align: left;
         background-color: #ffffff;
-        padding: 10px;
+        padding: $--size-default;
         border-bottom: 1px solid $--border-color;
         color: $--body-color;
 

@@ -6,7 +6,12 @@
 
 import table from './Table'
 
-const install = Vue => {
+const install = (Vue, config) => {
+  if (config) {
+    if (config.size && ['default', 'small', 'mini'].includes(config.size)) {
+      Vue.prototype.$SIZE = config.size
+    }
+  }
   Vue.component(table.name, table)
 }
 
