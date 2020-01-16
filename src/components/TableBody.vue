@@ -10,7 +10,13 @@
       </template>
     </colgroup>
     <tbody>
-    <tr class="vue-table__row" v-for="(row,rowIndex) in data" :key="rowIndex">
+    <tr
+        v-for="(row, rowIndex) in data"
+        :key="rowIndex"
+        class="vue-table__row"
+        :class="[
+          rowClass(row, rowIndex)
+        ]">
       <td
           v-for="(col,colIndex) in columns"
           :key="colIndex"
@@ -25,7 +31,7 @@
           rowspan="1"
           colspan="1">
         <template v-if="col.slot">
-          <slot :row="row" :name="col.slot">{{row[col.key]}}</slot>
+          <slot :row="row" :name="col.slot"/>
         </template>
         <template v-else>
           {{col.type === 'index' ? (rowIndex + 1) : row[col.key]}}
@@ -47,21 +53,24 @@
           return []
         },
       },
+
       data: {
         type: Array,
         default: function () {
           return []
         }
       },
+
       colgroup: {
         type: Array,
         default: function () {
           return []
         },
       },
+
+      rowClass: Function,
     },
 
-    computed: {},
 
     data() {
       return {}

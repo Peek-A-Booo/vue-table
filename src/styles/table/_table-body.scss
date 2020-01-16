@@ -10,9 +10,10 @@
     border-spacing: 0;
 
     .vue-table__row {
+      background: #ffffff;
+
       td {
         text-align: left;
-        background-color: #ffffff;
         padding: $--size-default;
         border-bottom: 1px solid $--border-color;
         color: $--body-color;

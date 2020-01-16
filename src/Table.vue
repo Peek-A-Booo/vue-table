@@ -23,7 +23,12 @@
       <div
           ref="body" class="vue-table__body-wrapper"
           :style="bodyStyles" @scroll="handleBodyScroll">
-        <table-body :colgroup="cols" :columns="calcColumns" :data="data" ref="bodyTable">
+        <table-body
+            ref="bodyTable"
+            :colgroup="cols"
+            :columns="calcColumns"
+            :data="data"
+            :row-class="rowClass">
           <template v-for="col in slotList" v-slot:[col.slot]="scope">
             <slot :row="scope.row" :name="col.slot"/>
           </template>
@@ -103,6 +108,8 @@
         type: Boolean,
         default: false,
       },
+
+      rowClass: Function,
     },
 
     data() {

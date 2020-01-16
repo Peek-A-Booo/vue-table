@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <vue-table :loading="loading" :columns="columns" :data="list" height="+400" border>
+    <vue-table
+        height="+400" border
+        :loading="loading"
+        :columns="columns"
+        :data="list"
+        :row-class="handleRow">
       <template v-slot:color="scope">
         <button class="button">
           <span>{{scope.row.color}}</span>
@@ -122,9 +127,17 @@
         // this.loading = !this.loading
         this.list = JSON.parse(JSON.stringify(this.list)).slice(0, 3)
       },
+      handleRow(row, index) {
+        return ''
+      },
     },
   }
 </script>
+<style>
+  .vue-table__row.test_css {
+      background: #409eff !important;
+  }
+</style>
 <style scoped lang="scss">
   .button {
     padding: 7px 15px;
@@ -136,4 +149,6 @@
     outline: none;
     cursor: pointer;
   }
+
+
 </style>
