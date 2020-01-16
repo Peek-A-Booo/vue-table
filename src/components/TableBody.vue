@@ -19,6 +19,7 @@
             {
               'vue-table__body__row-align-center': col.align === 'center',
               'vue-table__body__row-align-right': col.align === 'right',
+              'vue-table__body__row-tooltip': col.tooltip
             },
           ]"
           rowspan="1"

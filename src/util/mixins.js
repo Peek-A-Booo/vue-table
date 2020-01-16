@@ -1,4 +1,5 @@
 let cached
+let timeout = null
 export default {
   methods: {
     $width(data) {
@@ -22,8 +23,6 @@ export default {
      * @param subData 需要减去的高度
      * */
     $height(data, subData = 0) {
-      console.log(data, 'data')
-      console.log(subData, 'sub')
       let height = ''
       if (!data) {
         height = ''
@@ -40,6 +39,19 @@ export default {
       }
       return height
     },
+    $h(data) {
+      let height
+      if (!data) return ''
+      if (data.includes('+')) {
+        height = `calc(100vh - ${data.slice(1)}px)`
+      } else if (!isNaN(data / 1)) {
+        height = data + 'px'
+      } else {
+        height = data
+      }
+      return height
+    },
+
     getScrollBarWidth(fresh) {
       if (this.$isServer) return 0
       if (fresh || cached === undefined) {
@@ -76,6 +88,19 @@ export default {
         cached = widthContained - widthScroll;
       }
       return cached;
+    },
+
+    /**
+     * 定时器事件(如果没有瞬间第二次触发，才触发最终事件)
+     * */
+    $timeout(func, timeout = 0) {
+      if (timeout) {
+        clearTimeout(timeout)
+        timeout = null
+      }
+      timeout = setTimeout(_ => {
+        func()
+      }, timeout)
     },
   },
 }

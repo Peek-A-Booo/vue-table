@@ -1,6 +1,7 @@
 .vue-table__body-wrapper {
   border-bottom: 1px solid $--border-color;
   position: relative;
+  box-sizing: border-box;
 
   .vue-table__body {
     width: 100%;
@@ -15,6 +16,7 @@
         padding: $--size-default;
         border-bottom: 1px solid $--border-color;
         color: $--body-color;
+        overflow: hidden;
 
         &.vue-table__body__row-align-center {
           text-align: center;
@@ -22,6 +24,11 @@
 
         &.vue-table__body__row-align-right {
           text-align: right;
+        }
+
+        &.vue-table__body__row-tooltip {
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
 

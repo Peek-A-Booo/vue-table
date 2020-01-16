@@ -1,5 +1,6 @@
 <template>
   <div
+      ref="table"
       class="vue-table"
       :style="styles"
       :class="[
@@ -15,15 +16,13 @@
       ]">
     <div class="vue-table__container" :class="{ 'vue-table__loading': loading }">
       <div
-          class="vue-table__header-wrapper" ref="header"
-          :style="headerStyle"
-          @scroll="handleHeaderScroll">
+          ref="header" class="vue-table__header-wrapper"
+          :style="headerStyle" @scroll="handleHeaderScroll">
         <table-header :colgroup="cols" :columns="calcColumns"/>
       </div>
       <div
-          class="vue-table__body-wrapper" ref="body"
-          :style="bodyStyle"
-          @scroll="handleBodyScroll">
+          ref="body" class="vue-table__body-wrapper"
+          :style="bodyStyles" @scroll="handleBodyScroll">
         <table-body :colgroup="cols" :columns="calcColumns" :data="data" ref="bodyTable">
           <template v-for="col in slotList" v-slot:[col.slot]="scope">
             <slot :row="scope.row" :name="col.slot"/>
@@ -116,6 +115,9 @@
         scrollBarWidth: this.getScrollBarWidth(),
         clientWidth: null,
         cols: [],
+        styles: {},
+        bodyStyles: {},
+        resizeTimeout: null,
       }
     },
 
@@ -136,12 +138,11 @@
         ]
       },
 
-      styles() {
-        let style = {}
-        if (this.tableBodyHeight) {
-          // console.log(this.tableBodyHeight, 'this.tableBodyHeight')
-        }
-        return style
+      //判断是否要开启resize事件,在未设置高度或者设置定高时，则关闭resize事件提升页面效率
+      autoResize() {
+        let height = String(this.height)
+        if (this.height && (height.includes('+') || height.includes('calc'))) return true
+        return false
       },
 
       headerStyle() {
@@ -159,15 +160,28 @@
         if (this.tableBodyHeight) {
           if (this.totalWidth > this.tableWidth) style.overflowX = 'scroll'
           if (this.height) {
-            //因为配置了一个margin-bottom : -15px，所以要 -15
+            //分两种情况判断，正常配置的height或者是calc的height
+            //头部高度,表格内容高度(两种情况都会用到此高度)
             let headerHeight = this.$refs.header.offsetHeight - (this.showVerticalScrollBar ? 15 : 0)
-            let tableHeight = this.$refs.bodyTable.$el.offsetHeight
-            style.height = this.$height(this.height, headerHeight)
-            if ((tableHeight + headerHeight) > parseInt(this.height)) {
-              this.showVerticalScrollBar = true
-              style.overflowY = 'scroll'
+            if (!this.autoResize) {
+              let tableHeight = this.$refs.bodyTable.$el.offsetHeight
+              style.height = parseInt(this.height) - headerHeight + 'px'
+              if (headerHeight + tableHeight > parseInt(this.height)) {
+                this.showVerticalScrollBar = true
+                style.overflowY = 'scroll'
+              } else {
+                this.showVerticalScrollBar = false
+              }
             } else {
-              this.showVerticalScrollBar = false
+              style.height = this.tableBodyHeight
+              this.$nextTick(_ => {
+                let bodyHeight = this.$refs.body.offsetHeight
+                let tableHeight = this.$refs.bodyTable.$el.offsetHeight
+                if (tableHeight > bodyHeight) {
+                  this.showVerticalScrollBar = true
+                  style.overflowY = 'scroll'
+                }
+              })
             }
           }
         } else {
@@ -196,9 +210,20 @@
         deep: true,
       },
 
+      height() {
+        this.handleResize()
+      },
+
       calcColumns() {         //修改列数时重新计算
         this.handleResize()
       },
+
+      showVerticalScrollBar() {
+        this.$nextTick(_ => {
+          this.handleResize()
+        })
+      },
+
     },
 
     methods: {
@@ -234,9 +259,58 @@
         }
         this.tableWidth = width
         this.cols = groups
-        this.$nextTick(_ => {
-          this.tableBodyHeight = this.$refs.body.offsetHeight
-        })
+        if (!this.ready) {
+          this.setStyles()
+          this.$nextTick(_ => {
+            this.setBodyStyle()
+            this.ready = true
+          })
+        } else {
+          this.setBodyStyle()
+        }
+      },
+
+      timeoutHandleResize() {
+        if (this.resizeTimeout) clearTimeout(this.resizeTimeout)
+        this.resizeTimeout = setTimeout(_ => {
+          this.handleResize()
+        }, 30)
+      },
+
+      setStyles() {
+        let style = {}
+        if (this.height) style.height = this.$h(this.height)
+        this.styles = style
+      },
+
+      setBodyStyle() {
+        let style = {}
+        if (this.totalWidth > this.tableWidth) style.overflowX = 'scroll'
+        if (this.height) {
+          let totalHeight = this.$el.offsetHeight
+          let headerHeight = this.$refs.header.offsetHeight - (this.showVerticalScrollBar ? 15 : 0)
+          let tableHeight = this.$refs.bodyTable.$el.offsetHeight
+          if (!this.autoResize) {
+            style.height = parseInt(this.height) - headerHeight + 'px'
+            if (headerHeight + tableHeight > parseInt(this.height)) {
+              this.showVerticalScrollBar = true
+              style.overflowY = 'scroll'
+            } else {
+              this.showVerticalScrollBar = false
+            }
+          } else {
+            style.height = totalHeight - headerHeight + 'px'
+            if (tableHeight > (totalHeight - headerHeight)) {
+              this.showVerticalScrollBar = true
+              style.overflowY = 'scroll'
+            } else {
+              this.showVerticalScrollBar = false
+            }
+          }
+        } else {
+          this.showVerticalScrollBar = false
+        }
+        this.bodyStyles = style
       },
 
       //处理table header和body滚动事件，同步滚动
@@ -245,6 +319,7 @@
         let body = this.$refs.body
         body.scrollLeft = header.scrollLeft
       },
+
       handleBodyScroll() {
         let header = this.$refs.header
         let body = this.$refs.body
@@ -254,14 +329,14 @@
 
     mounted() {
       this.handleResize()
-      this.$nextTick(() => this.ready = true)
-      // window.addEventListener('resize', this.handleResize)
-      // this.observer = elementResizeDetectorMaker();
-      // this.observer.listenTo(this.$el, this.handleResize);
-    }
-    ,
+      //只有在需要resize的情况下，才开始监听事件，避免性能损耗
+      if (this.autoResize) {
+        window.addEventListener('resize', this.timeoutHandleResize)
+      }
+    },
+
     beforeDestroy() {
-      // window.removeEventListener('resize', this.handleResize)
+      if (this.autoResize) window.removeEventListener('resize', this.timeoutHandleResize)
     }
   }
 </script>

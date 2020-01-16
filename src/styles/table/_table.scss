@@ -97,6 +97,7 @@
 
   .vue-table__container {
     transition: opacity .3s;
+    height: 100%;
 
     &.vue-table__loading {
       opacity: .3;
