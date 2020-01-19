@@ -68,7 +68,12 @@
         },
       },
 
-      rowClass: Function,
+      rowClass: {
+        type: Function,
+        default() {
+          return ''
+        },
+      },
     },
 
 
@@ -79,7 +84,6 @@
     methods: {},
 
     mounted() {
-
     }
 
   }

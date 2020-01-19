@@ -109,7 +109,12 @@
         default: false,
       },
 
-      rowClass: Function,
+      rowClass: {
+        type: Function,
+        default() {
+          return ''
+        },
+      },
     },
 
     data() {
@@ -212,7 +217,9 @@
     watch: {
       data: {
         handler() {
-          this.handleResize()
+          this.$nextTick(_=>{
+            this.handleResize()
+          })
         },
         deep: true,
       },
@@ -319,7 +326,6 @@
         }
         this.bodyStyles = style
       },
-
       //处理table header和body滚动事件，同步滚动
       handleHeaderScroll() {
         let header = this.$refs.header
