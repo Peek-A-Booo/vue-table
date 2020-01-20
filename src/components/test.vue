@@ -103,13 +103,14 @@
   import tableHead from './table-head.vue';
   import tableBody from './table-body.vue';
   import Spin from '../spin/spin.vue';
-  import { oneOf, getStyle, deepCopy, getScrollBarSize } from '../../utils/assist';
-  import { on, off } from '../../utils/dom';
+  import {deepCopy, getScrollBarSize, getStyle, oneOf} from '../../utils/assist';
+  import {off, on} from '../../utils/dom';
   import Csv from '../../utils/csv';
   import ExportCsv from './export-csv';
   import Locale from '../../mixins/locale';
   import elementResizeDetectorMaker from 'element-resize-detector';
-  import { getAllColumns, convertToRows, convertColumnOrder, getRandomStr } from './util';
+  import {convertColumnOrder, convertToRows, getAllColumns, getRandomStr} from './util';
+
   const prefixCls = 'ivu-table';
   let rowKey = 1;
   let columnKey = 1;

@@ -15,7 +15,10 @@
         :key="rowIndex"
         class="vue-table__row"
         :class="[
-          rowClass(row, rowIndex)
+          rowClass(row, rowIndex),
+          {
+            'vue-table__body__row-selected': row.vueTableSelectItem,
+          },
         ]">
       <td
           v-for="(col,colIndex) in columns"
@@ -25,13 +28,32 @@
             {
               'vue-table__body__row-align-center': col.align === 'center',
               'vue-table__body__row-align-right': col.align === 'right',
-              'vue-table__body__row-tooltip': col.tooltip
+              'vue-table__body__row-tooltip': col.tooltip,
+              'vue-table__selection-column': col.type === 'select',
             },
           ]"
           rowspan="1"
           colspan="1">
         <template v-if="col.slot">
           <slot :row="row" :name="col.slot"/>
+        </template>
+        <template v-else-if="col.type=== 'select'">
+          <div class="vue-table__selection">
+            <label
+                class="vue-table__checkbox-wrapper"
+                :class="{'vue-table__checkbox-wrapper-checked': row.vueTableSelectItem}">
+            <span
+                class="vue-table__checkbox"
+                :class="{'vue-table__checkbox-checked': row.vueTableSelectItem}">
+              <input
+                  class="vue-table__checkbox-input"
+                  type="checkbox"
+                  v-model="row.vueTableSelectItem"
+                  @change="handleSelect(row, rowIndex)">
+              <span class="vue-table__checkbox-inner"/>
+            </span>
+            </label>
+          </div>
         </template>
         <template v-else>
           {{col.type === 'index' ? (rowIndex + 1) : row[col.key]}}
@@ -76,15 +98,15 @@
       },
     },
 
-
     data() {
       return {}
     },
 
-    methods: {},
-
-    mounted() {
-    }
+    methods: {
+      handleSelect(row, index) {
+        this.$parent.selectSingle(JSON.parse(JSON.stringify(row)), index)
+      },
+    },
 
   }
 </script>

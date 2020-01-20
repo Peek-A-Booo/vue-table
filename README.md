@@ -1,11 +1,14 @@
-# vue-fast-table
+# Vue-Fast-Table
 
-## Project setup
+## Installation
+
+##### NPM
+
 ```
-npm install
+npm install vue-fast-table --save
 ```
 
-### Compiles and hot-reloads for development
+## Usage
 ```
 npm run serve
 ```

@@ -30,8 +30,14 @@
               :class="{'vue-table__checkbox-wrapper-checked': totalCheck}">
             <span
                 class="vue-table__checkbox"
-                :class="{'vue-table__checkbox-checked': totalCheck}">
-              <input class="vue-table__checkbox-input" v-model="totalCheck" type="checkbox">
+                :class="{
+                  'vue-table__checkbox-checked': totalCheck,
+                  'vue-table__checkbox-indeterminate': indeterminate
+                }">
+              <input
+                  class="vue-table__checkbox-input"
+                  type="checkbox"
+                  @change="totalChange">
               <span class="vue-table__checkbox-inner"/>
             </span>
           </label>
@@ -57,6 +63,13 @@
         },
       },
 
+      data: {
+        type: Array,
+        default: function () {
+          return []
+        }
+      },
+
       colgroup: {
         type: Array,
         default: function () {
@@ -65,13 +78,30 @@
       },
     },
 
+    computed: {
+      totalCheck() {
+        if (!this.data || !this.data.length) return false
+        return this.data.filter(item => item.vueTableSelectItem).length === this.data.length
+      },
+      indeterminate() {
+        if (!this.data || !this.data.length) return false
+        let selectLen = this.data.filter(item => item.vueTableSelectItem).length
+        return selectLen < this.data.length && selectLen > 0
+      },
+    },
+
     data() {
       return {
-        totalCheck: false,
+
       }
     },
 
-    methods: {},
+    methods: {
+      totalChange() {
+        let selected = this.data.filter(item => item.vueTableSelectItem).length
+        this.$parent.selectAll(selected === this.data.length)
+      },
+    },
 
     created() {
 

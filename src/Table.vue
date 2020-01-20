@@ -16,24 +16,28 @@
       ]">
     <div class="vue-table__container" :class="{ 'vue-table__loading': loading }">
       <div
-          ref="header" class="vue-table__header-wrapper"
-          :style="headerStyle" @scroll="handleHeaderScroll">
-        <table-header :colgroup="cols" :columns="calcColumns"/>
+          ref="header"
+          class="vue-table__header-wrapper"
+          :style="headerStyle"
+          @scroll="handleHeaderScroll">
+        <table-header :data="calcData" :colgroup="cols" :columns="calcColumns"/>
       </div>
       <div
-          ref="body" class="vue-table__body-wrapper"
-          :style="bodyStyles" @scroll="handleBodyScroll">
+          ref="body"
+          class="vue-table__body-wrapper"
+          :style="bodyStyles"
+          @scroll="handleBodyScroll">
         <table-body
             ref="bodyTable"
             :colgroup="cols"
             :columns="calcColumns"
-            :data="data"
+            :data="calcData"
             :row-class="rowClass">
           <template v-for="col in slotList" v-slot:[col.slot]="scope">
             <slot :row="scope.row" :name="col.slot"/>
           </template>
         </table-body>
-        <div class="vue-table__placeholder" v-if="!data || !data.length">
+        <div class="vue-table__placeholder" v-if="!calcData || !calcData.length">
           <p class="vue-table__empty-description">{{emptyText || 'No Data'}}</p>
         </div>
       </div>
@@ -56,7 +60,6 @@
   import TableHeader from './components/TableHeader'
   import TableBody from './components/TableBody'
   import mixins from './util/mixins'
-  import elementResizeDetectorMaker from 'element-resize-detector'
 
   export default {
     name: "VueTable",
@@ -120,6 +123,7 @@
     data() {
       return {
         ready: false,
+        calcData: this.getData(),
         tableWidth: 0,                    //表格实际宽度
         totalWidth: 0,                    //表格元素实际占的宽度
         tableBodyHeight: 0,               //表格实际高度
@@ -212,12 +216,14 @@
         })
         return columns
       },
+
     },
 
     watch: {
       data: {
         handler() {
-          this.$nextTick(_=>{
+          this.calcData = this.getData()
+          this.$nextTick(_ => {
             this.handleResize()
           })
         },
@@ -237,10 +243,17 @@
           this.handleResize()
         })
       },
-
     },
 
     methods: {
+      //转化数据
+      getData() {
+        let data = JSON.parse(JSON.stringify(this.data))
+        if (this.columns.find(item => item.type === 'select')) {
+          data.forEach(item => item.vueTableSelectItem = false)
+        }
+        return data
+      },
       /**
        * 根据不同情况来设定table的width和height以及出现滚动条的情况
        * */
@@ -337,6 +350,19 @@
         let header = this.$refs.header
         let body = this.$refs.body
         header.scrollLeft = body.scrollLeft
+      },
+
+      selectSingle() {
+        let selectList = JSON.parse(JSON.stringify(this.calcData)).filter(item => item.vueTableSelectItem)
+        selectList.forEach(item => {
+          delete item.vueTableSelectItem
+        })
+        this.$emit('select-change', selectList)
+      },
+
+      selectAll(val) {
+        this.calcData.forEach(item => item.vueTableSelectItem = !val)
+        this.$emit('select-change', val ? [] : JSON.parse(JSON.stringify(this.data)))
       },
     },
 
