@@ -24,7 +24,7 @@ fff | ggg| hhh | iii | 000|
 
 参数 | 说明 | 类型 | 可选值 | 默认值
 - | - | - | - | -
-border | 是否有边框 | Boolean | true/false | false |
+border | 是否有边框 | Boolean | true/false | false|
 
 
 <!-- |loading|是否显示loading遮罩层|Boolean|true/false|false|
