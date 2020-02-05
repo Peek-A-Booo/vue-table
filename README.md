@@ -16,14 +16,14 @@ npm install vue-fast-table --save
 ##### Table
 
 参数 | 说明 | 类型 | 可选值 | 默认值
-- | - | - | - | -
+:-: | :-: | :-: | :-: | :-:
 aaa | bbb | ccc | ddd | eee| 
 fff | ggg| hhh | iii | 000|
 
 
 
 参数 | 说明 | 类型 | 可选值 | 默认值
-- | - | - | - | -
+:-: | :-: | :-: | :-: | :-:
 border | 是否有边框 | Boolean | true/false | false|
 
 
