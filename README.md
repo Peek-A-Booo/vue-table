@@ -14,6 +14,7 @@ npm install vue-fast-table --save
 ## API
 
 ##### Table
+<center>
 |参数|说明|类型|可选值|默认值|
 |-|-|-|-|
 |border|是否有边框|Boolean|true/false|false|
@@ -24,6 +25,7 @@ npm install vue-fast-table --save
 |index|是否展示表格行号|Boolean|true/false|false|
 |size|表格大小尺寸|String|default/small/mini|default|
 |emptyText|表格无数据时的文字|String|-|No Data|
+</center>
 
 
 ### Compiles and minifies for production
