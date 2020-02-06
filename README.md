@@ -18,11 +18,17 @@ import Vue from 'vue'
 import VueFastTable from 'vue-fast-table'
 
 Vue.use(VueFastTable /*, { size: { theme: 'default'  }} */）
+
+// in page
+<vue-table :data="data" :columns="columns"></vue-table>
 ```
 
 #### Component
 
 ```js
+// in template
+<vue-table :data="data" :columns="columns"></vue-table>
+
 // require component
 import { VueFastTable } from 'vue-fast-table'
 
@@ -35,7 +41,7 @@ export default {
 ```
 
 
-## API
+## Props
 
 #### Table
 
@@ -65,10 +71,13 @@ type|设定某些特殊列|String|select / ..|-|
 
 
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Events
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+事件名 | 说明 | 参数 
+:-: | :-: | :-:
+select-change|当选择项发生变化时会触发该事件|selection
+
+
+
+## License
+Copyright (c) 2016 [Peek-A-Booo](https://github.com/Peek-A-Booo) by [MIT](https://opensource.org/licenses/MIT)
