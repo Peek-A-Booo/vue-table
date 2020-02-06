@@ -42,7 +42,7 @@
           </template>
         </table-body>
         <div class="vue-table__placeholder" v-if="!calcData || !calcData.length">
-          <p class="vue-table__empty-description">{{emptyText || 'No Data'}}</p>
+          <p class="vue-table__empty-description">{{emptyText || ''}}</p>
         </div>
       </div>
     </div>
