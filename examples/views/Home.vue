@@ -1,9 +1,18 @@
 <template>
   <div class="home">
-    <el-button size="mini">124</el-button>
+    <el-button size="mini" @click="clear">124</el-button>
     <input type="checkbox" disabled v-model="asd" />
 
-    <vue-table height="665" border :loading="loading" :columns="columns" :data="list"></vue-table>
+    <vue-table
+      ref="table"
+      height="665"
+      @select-all="test"
+      @select-change="handleSelectChange"
+      border
+      :loading="loading"
+      :columns="columns"
+      :data="list"
+    ></vue-table>
 
     <button @click="test">测试按钮2</button>
   </div>
@@ -293,7 +302,10 @@ export default {
   methods: {
     test() {
       // this.loading = !this.loading
-      this.list = JSON.parse(JSON.stringify(this.list)).slice(0, 3);
+      console.log(1);
+    },
+    clear() {
+      this.$refs.table.clearSelection();
     },
     handleRow(row, index) {
       return "";

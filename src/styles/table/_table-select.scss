@@ -52,7 +52,7 @@
   }
 
   .vue-table__row.vue-table__body__row-selected td {
-    background: #e6f7ff;
+    background: $--body-select-row-color;
   }
 }
 

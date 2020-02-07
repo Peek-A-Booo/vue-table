@@ -1,5 +1,6 @@
 # Vue-Fast-Table
 
+
 ## Installation
 
 ##### NPM
@@ -71,13 +72,22 @@ type|设定某些特殊列|String|select / ..|-|
 
 
 
-## Events
+## Table Events
 
 事件名 | 说明 | 参数 
 :-: | :-: | :-:
 select-change|当选择项发生变化时会触发该事件|selection
+select-all|当用户手动勾选全选时触发的事件|selection
+
+
+
+## Table Methods
+
+事件名 | 说明 | 参数 
+:-: | :-: | :-:
+clearSelection|用于多选表格，清空用户的选择|-
 
 
 
 ## License
-Copyright (c) 2016 [Peek-A-Booo](https://github.com/Peek-A-Booo) by [MIT](https://opensource.org/licenses/MIT)
+Copyright (c) 2020 [Peek-A-Booo](https://github.com/Peek-A-Booo) by [MIT](https://opensource.org/licenses/MIT)

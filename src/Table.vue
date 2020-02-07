@@ -271,6 +271,7 @@ export default {
       }
       return data;
     },
+
     /**
      * 根据不同情况来设定table的width和height以及出现滚动条的情况
      * */
@@ -358,6 +359,7 @@ export default {
       }
       this.bodyStyles = style;
     },
+
     //处理table header和body滚动事件，同步滚动
     handleHeaderScroll() {
       let header = this.$refs.header;
@@ -387,6 +389,16 @@ export default {
         "select-change",
         val ? [] : JSON.parse(JSON.stringify(this.data))
       );
+      this.$emit(
+        "select-all",
+        val ? [] : JSON.parse(JSON.stringify(this.data))
+      );
+    },
+
+    clearSelection() {
+      this.calcData.forEach(item => {
+        item.vueTableSelectItem = false;
+      });
     }
   },
 

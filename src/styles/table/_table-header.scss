@@ -15,8 +15,7 @@
     table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0;
-    //border-right: 1px solid red;
-
+ 
     tr {
       th {
         text-align: left;
@@ -25,7 +24,7 @@
         background-color: $--header-background-color;
         padding: $--size-default;
         color: $--header-color;
-        font-weight: 500;
+        font-weight: $--header-font-weight;
 
         &.vue-table__header-align-center {
           text-align: center;
