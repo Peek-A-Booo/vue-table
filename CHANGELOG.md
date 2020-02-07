@@ -2,9 +2,13 @@
 
 ## 0.3.1 (2020-02-07)
 
-### update
+### Update
 1. 更新readme文档
 2. 优化部分细节问题
+
+### Change
+1. 新增select-all events
+2. 新增clearSelection methods
 
 
 ## 0.3.0 (2020-01-20)
