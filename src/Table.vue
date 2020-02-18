@@ -152,7 +152,7 @@ export default {
 
   computed: {
     slotList() {
-      return JSON.parse(JSON.stringify(this.columns)).filter(item => item.slot);
+      return JSON.parse(JSON.stringify(this.columns)).filter(item => item.slot && !item.hide);
     },
 
     tableSize() {
@@ -223,7 +223,9 @@ export default {
     },
 
     calcColumns() {
-      let columns = JSON.parse(JSON.stringify(this.columns));
+      let columns = JSON.parse(JSON.stringify(this.columns)).filter(
+        item => !item.hide
+      );
       if (this.index)
         columns.unshift({
           label: "#",

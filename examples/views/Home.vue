@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <el-button size="mini" @click="clear">124</el-button>
+    <el-button size="mini" @click="test">124</el-button>
     <input type="checkbox" disabled v-model="asd" />
 
     <vue-table
@@ -25,6 +25,7 @@ export default {
     return {
       asd: false,
       loading: false,
+      show: false,
       columns: [
         {
           type: "select",
@@ -302,7 +303,8 @@ export default {
   methods: {
     test() {
       // this.loading = !this.loading
-      console.log(1);
+      this.$set(this.columns[4], "hide", true);
+      console.log(JSON.parse(JSON.stringify(this.columns)), "???");
     },
     clear() {
       this.$refs.table.clearSelection();

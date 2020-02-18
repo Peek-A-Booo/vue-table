@@ -69,6 +69,7 @@ slot|指定插槽对应的key|String|-|-|
 tooltip|当内容过长时隐藏|Boolean|true / false|false|
 width|列的固定宽度|String / Number|-|-|
 type|设定某些特殊列|String|select / ..|-|
+hide|是否隐藏掉该列|Boolean|true / false|false|
 
 
 
