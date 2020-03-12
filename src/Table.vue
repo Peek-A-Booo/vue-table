@@ -152,7 +152,9 @@ export default {
 
   computed: {
     slotList() {
-      return JSON.parse(JSON.stringify(this.columns)).filter(item => item.slot && !item.hide);
+      return JSON.parse(JSON.stringify(this.columns)).filter(
+        item => item.slot && !item.hide
+      );
     },
 
     tableSize() {
@@ -223,9 +225,7 @@ export default {
     },
 
     calcColumns() {
-      let columns = JSON.parse(JSON.stringify(this.columns)).filter(
-        item => !item.hide
-      );
+      let columns = this.columns.filter(item => !item.hide);
       if (this.index)
         columns.unshift({
           label: "#",
@@ -269,7 +269,10 @@ export default {
     getData() {
       let data = JSON.parse(JSON.stringify(this.data));
       if (this.columns.find(item => item.type === "select")) {
-        data.forEach(item => (item.vueTableSelectItem = false));
+        data.forEach(item => {
+          item.vueTableSelectItem = false;
+          item.ellipsis = false;
+        });
       }
       return data;
     },

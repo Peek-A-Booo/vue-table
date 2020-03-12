@@ -8,6 +8,7 @@
     table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0;
+    position: relative;
 
     .vue-table__row {
       background: #ffffff;
@@ -36,6 +37,28 @@
       &:hover td {
         transition: all .3s;
         background-color: $--body-hover-color;
+      }
+    }
+
+    .vue-table__tooltip_show{
+      position: absolute;
+      z-index: 20;
+      background-color: #303133;
+      color: #ffffff;
+      font-size: 12px;
+      line-height: 1.2;
+      word-wrap: break-word;
+      border-radius: 4px;
+      padding: 10px;
+
+      .vue-table__tooltip_popper{
+        border-width: 4px;
+        border-color: #303133 transparent transparent transparent;
+        border-style: solid;
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 34px;
       }
     }
   }

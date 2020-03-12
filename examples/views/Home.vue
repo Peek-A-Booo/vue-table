@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <el-button size="mini" @click="test">124</el-button>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
+    <div>1</div>
     <input type="checkbox" disabled v-model="asd" />
 
     <vue-table
@@ -12,7 +17,9 @@
       :loading="loading"
       :columns="columns"
       :data="list"
-    ></vue-table>
+    >
+      <template v-slot:status="scope">124</template>
+    </vue-table>
 
     <button @click="test">测试按钮2</button>
   </div>
@@ -39,7 +46,9 @@ export default {
         {
           key: "name",
           label: "name",
-          align: "center"
+          align: "center",
+          width: 80,
+          tooltip: true
         },
         {
           label: "status",
@@ -50,7 +59,8 @@ export default {
           key: "language",
           label: "语言",
           align: "center",
-          tooltip: true
+          tooltip: true,
+          hide: true
         },
         {
           key: "status",
@@ -95,14 +105,13 @@ export default {
     };
   },
   mounted() {
-    // setTimeout(_ => {
     this.list = [
       {
         weight: 0,
         status: 0,
         open_time: 1568764800,
         node: "dr2_logic1@10.0.0.10",
-        name: "S1",
+        name: "S1ASFKAJSFH阿森林主卡更符合三大框架",
         language: "chinese",
         id: 1,
         open_time_copy: 1568764800000,
@@ -113,7 +122,7 @@ export default {
         status: 2,
         open_time: 1574294400,
         node: "dr2_logic2@10.0.0.10",
-        name: "S2",
+        name: "S2啊贷款感觉好多上飞机卡个和库里巅峰机爱护",
         language: "chinese",
         id: 2,
         open_time_copy: 1574294400000,
@@ -298,7 +307,6 @@ export default {
       //   "status_copy": -1
       // }
     ];
-    // })
   },
   methods: {
     test() {

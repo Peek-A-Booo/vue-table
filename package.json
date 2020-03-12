@@ -1,6 +1,6 @@
 {
   "name": "vue-fast-table",
-  "version": "0.3.3",
+  "version": "0.3.5",
   "description": "基于Vue的一个table组件",
   "main": "lib/vue-table.umd.min.js",
   "private": false,
@@ -22,12 +22,17 @@
     "vue-router": "3.1.5",
     "sass-loader": "8.0.2",
     "node-sass": "4.13.1",
-    "@vue/cli-plugin-babel": "4.2.0",
-    "@vue/cli-plugin-router": "4.2.0",
-    "@vue/cli-service": "4.2.0",
+    "@vue/cli-plugin-babel": "4.2.2",
+    "@vue/cli-plugin-router": "4.2.2",
+    "@vue/cli-service": "4.2.2",
     "vue-template-compiler": "2.6.11",
     "element-ui": "2.13.0"
   },
+  "keywords": [
+    "vue",
+    "table",
+    "fast"
+  ],
   "browserslist": [
     "> 1%",
     "last 2 versions"
